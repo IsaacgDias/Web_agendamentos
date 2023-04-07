@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <title>CADASTRO</title>
+
+
+<style>
+
+body{
+    background-color: #e5f9ff;
+}
+
+form{
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+input{
+    width: 55%;
+    height: 40px;
+    border-radius: 90px;
+    outline: none;
+    margin-top: 5px;
+    font-size: 13pt;
+    border: #000 solid 1px;
+    padding-left: 15px;
+}
+
+input[type=file]{
+    border: none;
+}
+
+#img_usuario{
+    border: none;
+}
+
+label{
+    font-size: 13pt;
+}
+
+button{
+    margin: 0 auto;
+    width: 110px;
+    height: 50px;
+    border-radius: 90px;
+    border: none;
+    background-color: #c4c4c4;
+}
+
+button:hover{
+    box-shadow: 0 0 8px #454545;
+}
+
+#cadG{
+    margin: 0 auto;
+    margin-left: 35%;
+}
+
+
+
+</style>
+  <script type="text/javascript">
+   	
+        var mostrarImg = function(event) {
+            var ler = new FileReader();
+            ler.onload = function(){
+                var mostrar = document.getElementById('mostrar');
+                mostrar.src = ler.result;
+            }
+        ler.readAsDataURL(event.target.files[0]);
+        }
+        
+</script>
+ 
+<style type="text/css">
+        
+         #mostrar {
+             width: 150px;
+             height: 150px;
+             margin: 10px;
+             margin-left: 15%;
+             border: 1px solid #000000;
+             border-radius: 100%;
+             background-image: url(../../img/CONECTA2.png);
+             background-size: 100% 90%;
+         }
+ 
+</style>
+
+<script>
+    function conferir() {
+        
+        const senha = document.getElementById('senha').value;
+        const senha_c = document.getElementById('senha_c').value;
+        if (senha != senha_c) {
+
+            alert("Senha diferente da confirmação da senha!");
+            return false;
+           
+            
+        } 
+
+        if(senha.length >= 8){
+            
+        }else{
+            alert("A senha deve conter no mínimo de 8 caracteres");
+            return false;
+        }
+        
+    }
+
+
+</script>
+
+</head>
+
+<body>
+
+    <!-- <h1>Funcionario</h1> -->
+
+    <main id="login" class="col-11">
+
+       
+            <form action="../../Controller/ProController.php" method="post" enctype="multipart/form-data" name="cad" class="col-8">
+
+                <div id="cadG" class="col-7">
+                    
+
+                    <img id="mostrar" alt=""> <br/><br>
+
+                    
+                    <input type="file" name="img" id="img" required onchange="mostrarImg(event)"><br>
+                    
+                    <input type="text" name="nome" id="nome" placeholder="Nome" required><br>
+                                    
+                    <input type="number" name="idade" id="idade" placeholder="Idade" required maxlength="3"><br>
+                                    
+                    <input type="text" name="sexo" id="sexo" placeholder="Sexo M ou F" required maxlength="1"><br>
+                                    
+                    <input type="email" name="mail" id="mail" placeholder="E-mail" required><br>
+                                    
+                    <input type="tel" name="telefone" id="telefone" placeholder="Telefone" required maxlength="15"><br>
+                                    
+                    <input type="text" name="cpf" id="cpf" placeholder="CPF" required maxlength="14"><br>
+                                
+                    <input type="text" name="cargo" id="cargo" placeholder="Cargo" required><br>
+
+                    <input type="password" name="senha" id="senha" placeholder="Senha" required><br>
+
+                    <input type="password" name="senha_c" id="senha_c" placeholder="Confirme a sua senha" required><br>
+
+                                      
+                    
+                <div class="entrar" id="entrarC">
+                    <p>Já tem uma conta? <a href="../../login.php">Entre aqui.</a></p>
+                    
+                   <button type="submit" id="cadastrar" name="cadastrar" onclick="return conferir()">Cadastrar</button> 
+                </div>
+             
+                </div>
+
+                
+
+
+            </form>
+
+
+    </main>
+    
+</body>
+
+
+<script type="text/javascript">
+        
+    var tel = document.getElementById('telefone');
+    tel.addEventListener('keyup', mask_tel);
+    
+    function mask_tel(e) {
+    
+            let carac = e.target.value.replace(/\D/g, "");
+    
+            carac = carac.replace(/^(\d\d)(\d)/g, "($1) $2");
+            carac = carac.replace(/(\d{5})(\d)/g, "$1-$2");
+    
+    
+            e.target.value = carac;
+    }
+    
+    /*--------------------------------------------MASCARAR CPF------------------------------------------------------------*/
+    
+    var cpf = document.getElementById('cpf');
+    cpf.addEventListener('keyup', mask_cpf);
+    
+    function mask_cpf(e) {
+    
+            let carac = e.target.value.replace(/\D/g, "");
+            carac = carac.replace(/(\d{3})(\d)/, "$1.$2");
+            carac = carac.replace(/(\d{3})(\d)/, "$1.$2");
+            carac = carac.replace(/(\d{3})(\d{1,2})/, "$1-$2");
+    
+            e.target.value = carac;
+    }
+    
+    // //Não fiuncionou com class, nem com id ):
+    
+    // var cpf1 = document.getElementsById('cpf_f');
+    // cpf1.addEventListener('keyup', mask_cpf1);
+    
+    // function mask_cpf1(e) {
+    
+    //         let carac = e.target.value.replace(/\D/g, "");
+    //         carac = carac.replace(/(\d{3})(\d)/, "$1.$2");
+    //         carac = carac.replace(/(\d{3})(\d)/, "$1.$2");
+    //         carac = carac.replace(/(\d{3})(\d{1,2})/, "$1-$2");
+    
+    //         e.target.value = carac;
+    // }
+</script>
+
+</html>

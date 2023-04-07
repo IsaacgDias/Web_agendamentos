@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <title>CADASTRO</title>
+
+    <style>
+        body {
+            background-color: #e5f9ff;
+        }
+
+        form {
+            margin: 0 auto;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        input {
+            width: 60%;
+            height: 40px;
+            border-radius: 90px;
+            outline: none;
+            margin-top: 5px;
+            font-size: 13pt;
+            border: #000 solid 1px;
+            padding-left: 15px;
+        }
+
+        #img_usuario {
+            border: none;
+        }
+
+        label {
+            font-size: 13pt;
+        }
+
+        button {
+            margin: 0 auto;
+            width: 110px;
+            height: 50px;
+            border-radius: 90px;
+            border: none;
+            background-color: #c4c4c4;
+        }
+
+        button:hover {
+            box-shadow: 0 0 8px #454545;
+        }
+
+        #cadG {
+            float: left;
+            margin-left: 9%;
+            padding-left: 6%;
+        }
+
+        #cadEnd {
+            float: right;
+            margin-right: 7%;
+            padding-left: 6%;
+            border-left: 1px solid #000;
+        }
+
+        img {
+            width: 200px;
+            margin-left: 43%;
+        }
+    </style>
+
+    <script>
+        function conferir() {
+            
+            const senha = document.getElementById('senha').value;
+            const senha_c = document.getElementById('senha_c').value;
+            if (senha != senha_c) {
+
+                alert("Senha diferente da confirmação da senha!");
+                return false;
+               
+                
+            } 
+
+            if(senha.length >= 8){
+                
+            }else{
+                alert("A senha deve conter no mínimo de 8 caracteres");
+                return false;
+            }
+            
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+
+
+    <main id="login" class="col-12">
+
+
+
+
+
+        <form action="../../Controller/UserController.php" method="post" name="cad" class="col-10">
+
+            <img src="../../img/CONECTA.png" alt="..."><br><br>
+
+            <div id="cadG" class="col-5">
+
+
+                <input type="text" name="nome" id="nome" placeholder="Nome e sobrenome" required>
+
+                <input type="number" name="idade" id="idade" placeholder="Idade" required maxlength="3">
+
+                <input type="text" name="sexo" id="sexo" placeholder="Sexo M ou F" required maxlength="1">
+
+                <input type="email" name="mail" id="mail" placeholder="E-mail" required>
+
+                <input type="tel" name="telefone" id="telefone" placeholder="Telefone" required maxlength="15">
+
+                <input type="text" name="cpf" id="cpf" placeholder="CPF" required maxlength="14">
+
+                <input type="password" name="senha" id="senha" placeholder="Senha" required>
+
+                <input type="password" name="senha_c" id="senha_c" placeholder="Confirme sua senha" required>
+
+            </div>
+
+            <div id="cadEnd" class="col-5">
+
+                <input type="text" name="cep" id="cep" placeholder="CEP">
+
+                <input type="text" name="bairro" id="bairro" placeholder="Bairro">
+
+                <input type="text" name="rua" id="rua" placeholder="Rua">
+
+                <input type="text" name="numero" id="numero" placeholder="N°">
+
+                <input type="text" name="complemento" id="complemento" placeholder="Complemento"><br><br><br>
+
+                <p>Já tem uma conta? <a href="../../login.php">Entre aqui.</a></p>
+                <p>Cadastrar-se como funcionario? <a href="../Funcionario/cadastroPro.html">aqui</a></p>
+                <button type="submit" id="cadastrar" name="cadastrar" value="Cadastrar"
+                    onclick="return conferir()">CADASTRAR</button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+
+
+
+<script>
+
+    var tel = document.getElementById('telefone');
+    tel.addEventListener('keyup', mask_tel);
+
+    function mask_tel(e) {
+
+        let carac = e.target.value.replace(/\D/g, "");
+
+        carac = carac.replace(/^(\d\d)(\d)/g, "($1) $2");
+        carac = carac.replace(/(\d{5})(\d)/g, "$1-$2");
+
+
+        e.target.value = carac;
+    }
+
+    /*--------------------------------------------MASCARAR CPF------------------------------------------------------------*/
+
+    var cpf = document.getElementById('cpf');
+    cpf.addEventListener('keyup', mask_cpf);
+
+    function mask_cpf(e) {
+
+        let carac = e.target.value.replace(/\D/g, "");
+
+        carac = carac.replace(/(\d{3})(\d)/, "$1.$2");
+        carac = carac.replace(/(\d{3})(\d)/, "$1.$2");
+        carac = carac.replace(/(\d{3})(\d{1,2})/, "$1-$2");
+
+        e.target.value = carac;
+    }
+
+
+// function calculo_cpf() {
+
+// var cpf = document.getElementById('cpf').value;
+
+// var cpf2 = cpf.substring(0, 3) + cpf.substring(4, 7) + cpf.substring(8, 11) + cpf.substring(12);
+
+// var soma1 = cpf.substring(0, 3) + cpf.substring(4, 7) + cpf.substring(8, 11);
+// var soma2 = cpf.substring(0, 3) + cpf.substring(4, 7) + cpf.substring(8, 11) + cpf.substring(12, 13);
+
+// var digit1 = 10;
+// var digit2 = 11;
+
+// sum1 = 0;
+// sum2 = 0;
+
+// let i = 0;
+// while (i < soma1.length) {
+
+//         var aqui = cpf2.charAt(i);
+//         var num = parseInt(aqui);
+
+//         sum1 += num * digit1;
+
+//         digit1--;
+//         i++;
+// }
+
+// let k = 0;
+// while (k < soma2.length) {
+
+//         var aqui2 = cpf2.charAt(k);
+//         var num2 = parseInt(aqui2);;
+
+//         sum2 += num2 * digit2;
+
+//         digit2--;
+//         k++;
+// }
+
+// sum1 = (sum1 * 10) % 11;
+// sum2 = (sum2 * 10) % 11;
+
+// return (cpf2.charAt(9) == sum1) && (cpf2.charAt(10) == sum2) ? true : false;
+
+// }
+
+
+</script>
+
+</html>
